@@ -28,8 +28,76 @@
 			<span v-else>{{dog_name}} is sad..</span>
 		</div>
 	</div>
+
 	
+
+	<p>Winning Score <a href="https://cemc.uwaterloo.ca/contests/computing/2019/stage%201/juniorEF.pdf">2019 J1 problem</a></p>
+	<div id="app2">
+		<div class="formfield">
+			<label>3-point shot by the Apples: <label> <input v-model="threePoint_Apples">
+		</div>
+		<div class="formfield">
+			<label>2-point field goal by the Apples: <label> <input v-model="twoPoint_Apples">
+		</div>
+		<div class="formfield">
+			<label>1-point free throw by the Apples: <label> <input v-model="onePoint_Apples">
+		</div>
+		<div class="formfield">
+			<label>3-point shot by the Bananas: <label> <input v-model="threePoint_Bananas">
+		</div>
+		<div class="formfield">
+			<label>2-point field goal by the Bananas: <label> <input v-model="twoPoint_Bananas">
+		</div>
+		<div class="formfield">
+			<label>1-point free throw by the Bananas: <label> <input v-model="onePoint_Bananas">
+		</div>
+
+		<div id="game_result">
+			<div><label>show diagnostics:</label><input type="checkbox" v-model="treat_diagnostics"></div>
+			<div v-if="treat_diagnostics">Total score (Apples): {{score_total_Apples}}</div>
+			<div v-if="treat_diagnostics">Total score (Bananas): {{score_total_Bananas}}</div>
+			<span v-if="score_total_Apples > 0 || score_total_Bananas > 0">{{game_result}}</span>
+			<span v-else>No scores yet.</span>
+		</div>
+	</div>
+
+
+
 	<script>
+	var app2 = new Vue({
+		el: '#app2',
+		data:{
+			treat_diagnostics:false,
+			threePoint_Apples:0,
+			twoPoint_Apples:0,
+			onePoint_Apples:0,
+			threePoint_Bananas:0,
+			twoPoint_Bananas:0,
+			onePoint_Bananas:0
+		},
+		computed:{
+			score_total_Apples:function(){
+				return (this.threePoint_Apples * 3) + 
+				(this.twoPoint_Apples * 2) + 
+				(this.onePoint_Apples * 1);	
+			},
+			score_total_Bananas:function(){
+				return (this.threePoint_Bananas * 3) + 
+				(this.twoPoint_Bananas * 2) + 
+				(this.onePoint_Bananas * 1);	
+			},
+			game_result:function(){
+				if(this.score_total_Apples === this.score_total_Bananas) {
+					return "T - It was a tie game.";
+				} else if (this.score_total_Apples > this.score_total_Bananas) {
+					return "A - The Apples won!";
+				} else {
+					return "B - The Bananas won!";
+				}
+			}
+		}
+	});
+
 	var app = new Vue({
 		el: '#app',
 		data:{

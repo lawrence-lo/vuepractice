@@ -13,7 +13,8 @@
 	
 	<div id="app">
 		<div v-bind:class="{box:true, hidden:boxHidden}">{{message}}</div>
-		<button v-on:click="showhide();">Click</button>
+		<button v-on:click="showhide();">{{buttonText}}</button>
+		<div v-bind:style="{width: '100px', height: boxHeight + 'px', backgroundColor: 'red'}" v-on:mouseover="mouseOver"></div>
 	</div>
 	
 	<script>
@@ -23,16 +24,23 @@
 		data:{
 			boxHeight:200,
 			boxHidden : false,
-			message  : 'Make me disappear!'
+			message  : 'Make me disappear!',
+			buttonText : 'Hide',
+			boxHeight : 100
 		},
 		methods:{
 			showhide : function(){
 				console.log(this.boxHidden);
 				if(this.boxHidden){
 					this.boxHidden=false;
+					app.buttonText = 'Hide';
 				}else{
-					this.boxHidden=true;	
+					this.boxHidden=true;
+					app.buttonText = 'Show';
 				}
+			},
+			mouseOver : function(){
+				app.boxHeight += 10;
 			}
 		}
 		

@@ -7,6 +7,12 @@
 		<style>
 			ul {list-style-type:none;}
 			ul li{marign-bottom:20px;}
+			.red {
+				color: red;
+			}
+			.blue {
+				color: blue;
+			}
 		</style>
 	</head>
 	<body>
@@ -15,7 +21,13 @@
 		<ul>
 			<li v-for="part in scene">
 				<span>{{part.character}}</span>
-				<p>{{part.dialogue}}</p>
+				<ul>
+					<li v-for="line in part.dialogue.split('\n')">
+						<p v-if="part.character.toLowerCase() === 'macbeth'" class="red">{{line}}</p>
+						<p v-else-if="part.character.toLowerCase() === 'lady macbeth'" class="blue">{{line}}</p>
+						<p v-else>{{line}}</p>
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</div>
